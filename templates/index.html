@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AWS Connect - Queue Viewer</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>AWS Connect Queue Viewer</h1>
+
+      <div class="card">
+        <div class="row">
+          <label for="instanceId">Connect Instance ID</label>
+          <input
+            id="instanceId"
+            type="text"
+            placeholder="e.g. 12345678-1234-1234-1234-123456789012"
+            value="{{ default_instance_id }}"
+          />
+        </div>
+        <div class="row">
+          <label for="region">AWS Region (optional)</label>
+          <input id="region" type="text" placeholder="e.g. us-east-1" />
+        </div>
+        <div class="row">
+          <button id="loadQueuesBtn" class="primary">Load Queues</button>
+        </div>
+        <div id="errorBox" class="error" role="alert" style="display:none;"></div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>Queues</h2>
+          <div id="queueLoading" class="muted" style="display:none;">
+            Loading queue list...
+          </div>
+          <table id="queuesTable">
+            <thead>
+              <tr>
+                <th>QueueId</th>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+          <div id="queuesEmpty" class="muted" style="display:none;">
+            No queues found (or API returned none).
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Queue Details</h2>
+          <div id="detailLoading" class="muted" style="display:none;">
+            Loading queue details...
+          </div>
+          <div id="queueDetails" class="pre"></div>
+        </div>
+      </div>
+
+      <div class="footer muted">
+        Uses AWS SDK for Python (`boto3`) to call `list_queues` and `describe_queue`.
+      </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
+
